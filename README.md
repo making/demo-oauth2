@@ -1,5 +1,6 @@
 # Spring Boot and Spring Security OAuth2 Tiny Demo
 
+[![Build Status](https://travis-ci.org/making/demo-oauth2.svg)](https://travis-ci.org/making/demo-oauth2)
 
 ## Run App
 
