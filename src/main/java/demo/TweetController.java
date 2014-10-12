@@ -3,6 +3,7 @@ package demo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -18,6 +19,7 @@ public class TweetController {
     static class Tweet {
         private UUID uuid;
         private String content;
+        private String tweetedBy;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -32,8 +34,9 @@ public class TweetController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    Tweet postTweets(@RequestBody Tweet tweet) {
+    Tweet postTweets(@RequestBody Tweet tweet, Authentication authentication) {
         tweet.setUuid(UUID.randomUUID());
+        tweet.setTweetedBy(authentication.getName());
         tweetMap.put(tweet.getUuid(), tweet);
         return tweet;
     }

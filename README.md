@@ -26,7 +26,8 @@
     
     {
       "content": "Hello World",
-      "uuid": "8b7774de-a118-49da-bfdc-fbcdba0a8083"
+      "uuid": "8b7774de-a118-49da-bfdc-fbcdba0a8083",
+      "tweetedBy": "making"
     }
     
     $ curl -X POST http://localhost:8080/api/v1/tweets\
@@ -36,7 +37,8 @@
     
     {
       "content": "Hello OAuth2",
-      "uuid": "3bd2f8b4-bc09-4fc8-82da-7d6dafac7d1a"
+      "uuid": "3bd2f8b4-bc09-4fc8-82da-7d6dafac7d1a",
+      "tweetedBy": "making"
     }
     
     $ curl -X GET http://localhost:8080/api/v1/tweets\
@@ -45,11 +47,13 @@
     [
       {
         "content": "Hello World",
-        "uuid": "8b7774de-a118-49da-bfdc-fbcdba0a8083"
+        "uuid": "8b7774de-a118-49da-bfdc-fbcdba0a8083",
+        "tweetedBy": "making"
       },
       {
         "content": "Hello OAuth2",
-        "uuid": "3bd2f8b4-bc09-4fc8-82da-7d6dafac7d1a"
+        "uuid": "3bd2f8b4-bc09-4fc8-82da-7d6dafac7d1a",
+        "tweetedBy": "making"
       }
     ]
 

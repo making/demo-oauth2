@@ -35,8 +35,8 @@ public class TweetControllerTest {
     public void setUp() throws Exception {
         RestAssured.port = port;
         controller.tweetMap.clear(); // clear test data
-        tweet1 = new TweetController.Tweet(UUID.randomUUID(), "sample1");
-        tweet2 = new TweetController.Tweet(UUID.randomUUID(), "sample2");
+        tweet1 = new TweetController.Tweet(UUID.randomUUID(), "sample1", "admin");
+        tweet2 = new TweetController.Tweet(UUID.randomUUID(), "sample2", "admin");
         controller.tweetMap.put(tweet1.getUuid(), tweet1);
         controller.tweetMap.put(tweet2.getUuid(), tweet2);
     }
@@ -65,8 +65,10 @@ public class TweetControllerTest {
                 .body("size()", equalTo(2))
                 .body("[0].content", is(tweet1.getContent()))
                 .body("[0].uuid", is(tweet1.getUuid().toString()))
+                .body("[0].tweetedBy", is(tweet1.getTweetedBy()))
                 .body("[1].content", is(tweet2.getContent()))
-                .body("[1].uuid", is(tweet2.getUuid().toString()));
+                .body("[1].uuid", is(tweet2.getUuid().toString()))
+                .body("[1].tweetedBy", is(tweet2.getTweetedBy()));
     }
 
 
@@ -81,7 +83,8 @@ public class TweetControllerTest {
                 .log().all()
                 .statusCode(200)
                 .body("content", is(tweet1.getContent()))
-                .body("uuid", is(tweet1.getUuid().toString()));
+                .body("uuid", is(tweet1.getUuid().toString()))
+                .body("tweetedBy", is(tweet1.getTweetedBy()));
 
         given().header("Authorization", "Bearer " + accessToken())
                 .log().all()
@@ -92,7 +95,8 @@ public class TweetControllerTest {
                 .log().all()
                 .statusCode(200)
                 .body("content", is(tweet2.getContent()))
-                .body("uuid", is(tweet2.getUuid().toString()));
+                .body("uuid", is(tweet2.getUuid().toString()))
+                .body("tweetedBy", is(tweet2.getTweetedBy()));
     }
 
     @Test
@@ -122,7 +126,8 @@ public class TweetControllerTest {
                 .statusCode(200)
                 .body("size()", equalTo(3))
                 .body("[2].content", is("Hello World"))
-                .body("[2].uuid", is(uuid));
+                .body("[2].uuid", is(uuid))
+                .body("[2].tweetedBy", is("making"));
 
         given().header("Authorization", "Bearer " + accessToken())
                 .log().all()
@@ -133,6 +138,7 @@ public class TweetControllerTest {
                 .log().all()
                 .statusCode(200)
                 .body("content", is("Hello World"))
-                .body("uuid", is(uuid));
+                .body("uuid", is(uuid))
+                .body("tweetedBy", is("making"));
     }
 }
